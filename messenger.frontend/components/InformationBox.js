@@ -1,9 +1,9 @@
 import styles from '@/styles/Messenger.module.scss';
 import { useEffect, useRef, useState } from 'react';
-import NetCommand from './NetCommand';
-import Socket from './Socket';
+import NetCommand from '@/utils/NetCommand';
+import Socket from '@/utils/Socket';
 import Cookies from 'js-cookie';
-import ConnectionMessageHandler from './ConnectionMessageHandler';
+import ConnectionMessageHandler from '@/utils/ConnectionMessageHandler';
 
 const InformationBox = ({ setChatList, userID }) => {
     const [name, setName] = useState()

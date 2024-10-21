@@ -1,6 +1,6 @@
-**/node_modules
+messenger.backend/poetry.lock
+messenger.frontend/node_modules
+messenger.frontend/.next
+messenger.frontend/package-lock.json
+**/.vscode
 **/__pycache__
-**/bin
-**/lib
-**/lib64
-**/.next

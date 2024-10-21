@@ -1,4 +1,5 @@
 from fastapi import FastAPI, WebSocket, Response, Request
+from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic_models import User, SessionToken
 from helpers import chat_sockets, dialogue_sockets, \
@@ -7,7 +8,22 @@ from json import loads
 from network import message_handler
 import asyncpg
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    global pool
+    pool = await asyncpg.create_pool(
+        user = 'postgres',
+        password = 'postgres',
+        database = 'messenger',
+        host = '127.0.0.1',
+        port = 5432,
+        min_size = 1,
+        max_size = 50,
+    )
+    yield
+    pool.close()
+
+app = FastAPI(lifespan = lifespan)
 pool: asyncpg.Pool
 origins = [
     'localhost',
@@ -22,20 +38,7 @@ app.add_middleware(
     allow_credentials = True, 
     allow_methods = ['*'],
     allow_headers = ['*'],
-)
-
-@app.on_event('startup')
-async def startup() -> None:
-    global pool
-    pool = await asyncpg.create_pool(
-        user = 'postgres',
-        password = 'postgres',
-        database = 'messenger',
-        host = '127.0.0.1',
-        port = 5432,
-        min_size = 1,
-        max_size = 50,
-    )
+)   
 
 @app.post('/login')
 async def login(user: User, response: Response, request: Request) -> dict:

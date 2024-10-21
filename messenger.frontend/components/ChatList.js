@@ -1,8 +1,8 @@
 import styles from '@/styles/Messenger.module.scss';
 import { useEffect, useRef, useState } from 'react';
-import NetCommand from './NetCommand';
-import Socket from './Socket';
-import ConnectionMessageHandler from './ConnectionMessageHandler';
+import NetCommand from '@/utils/NetCommand';
+import Socket from '@/utils/Socket';
+import ConnectionMessageHandler from '@/utils/ConnectionMessageHandler';
 
 const ChatList = ({ setSelectedChatID, chatList, setChatList }) => {
     const socket = useRef()
