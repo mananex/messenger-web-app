@@ -42,7 +42,7 @@ const InformationBox = ({ setChatList, userID }) => {
 
     useEffect(() => {
         socket.current = Socket(
-            'ws://127.0.0.1:8000/ws/messenger/information', 
+            process.env.NEXT_PUBLIC_INFORMATION_WEBSOCKET_ENDPOINT, 
             handleConnectionOpen,
             (e) => ConnectionMessageHandler(e, responseActions)
         )
@@ -72,7 +72,6 @@ const InformationBox = ({ setChatList, userID }) => {
                     <button className={styles.messengerInformationButton} onClick={(e) => handleConnectToUser(e)}>connect</button>
                 </div>
             </div>}
-            
         </>
     );
 }

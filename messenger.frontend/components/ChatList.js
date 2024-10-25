@@ -24,7 +24,7 @@ const ChatList = ({ setSelectedChatID, chatList, setChatList }) => {
 
     useEffect(() => {
         socket.current = Socket(
-            'ws://127.0.0.1:8000/ws/messenger/chatlist',
+            process.env.NEXT_PUBLIC_CHATLIST_WEBSOCKET_ENDPOINT,
             handleConnectionOpen,
             (e) => ConnectionMessageHandler(e, responseActions)
         )

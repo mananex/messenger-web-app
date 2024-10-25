@@ -14,7 +14,8 @@ const Dialogue = ({ selectedChatID, setSelectedChatID, userID }) => {
     const scrollableArea = useRef()
     const messageRef = useRef(message)
     const messageListRef = useRef(messageList)
-    const offset = useRef(0);
+    const offset = useRef(0)
+    const previousOffset = useRef(0)
 
     let shiftPressed = false;
 
@@ -60,7 +61,7 @@ const Dialogue = ({ selectedChatID, setSelectedChatID, userID }) => {
     }, [selectedChatID])
     useEffect(() => {
         socket.current = Socket(
-            'ws://127.0.0.1:8000/ws/messenger/dialogue',
+            process.env.NEXT_PUBLIC_DIALOGUE_WEBSOCKET_ENDPOINT,
             null,
             (e) => ConnectionMessageHandler(e, responseActions)
         )
@@ -102,7 +103,15 @@ const Dialogue = ({ selectedChatID, setSelectedChatID, userID }) => {
         }
     }, [scrollableArea.current])
     useEffect(() => {
-        if (scrollableArea.current) scrollableArea.current.scrollTop = 300
+        console.log(previousOffset.current, offset.current)
+        if (scrollableArea.current) {
+            if (previousOffset.current != offset.current) {
+                scrollableArea.current.scrollTop = 250
+                previousOffset.current = offset.current
+            } else { 
+                scrollableArea.current.scrollTop = scrollableArea.current.scrollHeight
+            }
+        }
         messageListRef.current = messageList 
     }, [messageList])
     useEffect(() => { 

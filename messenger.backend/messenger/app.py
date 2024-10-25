@@ -21,7 +21,7 @@ async def lifespan(app: FastAPI):
         max_size = 50,
     )
     yield
-    pool.close()
+    await pool.close()
 
 app = FastAPI(lifespan = lifespan)
 pool: asyncpg.Pool
