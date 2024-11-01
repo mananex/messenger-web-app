@@ -51,8 +51,7 @@ const ChatList = ({ setSelectedChatID, chatList, setChatList }) => {
                 chatList.map((item) => (
                     <div className={styles.messengerChatsChat} key={item.id} data-second-user-id={`${item.id}`}>
                         <div className={styles.messengerChatsChatTitle}>{item.login} - {item.name}</div>
-                        <div className={styles.messengerChatsChatLastMessage}>Hi! How are you?</div>
-                        <div className={styles.messengerChatsChatMore}>MORE</div>
+                        {/* <div className={styles.messengerChatsChatMore}>MORE</div> */}
                     </div>
                 ))
             }

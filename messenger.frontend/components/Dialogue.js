@@ -31,10 +31,14 @@ const Dialogue = ({ selectedChatID, setSelectedChatID, userID }) => {
     }
 
     const receiveMessage = (data) => {
-        console.log(data)
         if (data.chat_id === +selectedChatIDRef.current) {
             setReceivedMessage(data)
         }
+    }
+    const sendGetMessagesCommand = () => {
+        socket.current.send(NetCommand('get_messages', { target_user_id: selectedChatIDRef.current, offset: offset.current }))
+        offset.current += 10
+        console.log(selectedChatIDRef.current)
     }
     const getMessages = (data) => {
         data.forEach((item) => {
@@ -50,10 +54,12 @@ const Dialogue = ({ selectedChatID, setSelectedChatID, userID }) => {
     useEffect(() => {
         setMessageList([])
         setMessage('')
+        offset.current = 0
+        previousOffset.current = 0
+
         if (selectedChatID !== null) {
             selectedChatIDRef.current = selectedChatID
-            socket.current.send(NetCommand('get_messages', { target_user_id: selectedChatID, offset: offset.current }))
-            offset.current += 10
+            sendGetMessagesCommand()
         } else {
             selectedChatIDRef.current = null
         }
@@ -96,14 +102,12 @@ const Dialogue = ({ selectedChatID, setSelectedChatID, userID }) => {
         if (scrollableArea.current) {
             scrollableArea.current.addEventListener('scroll', (e) => {
                 if (e.target.scrollTop < 100) {
-                    socket.current.send(NetCommand('get_messages', { target_user_id: selectedChatID, offset: offset.current }))
-                    offset.current += 10
+                    sendGetMessagesCommand()
                 }
             })
         }
     }, [scrollableArea.current])
     useEffect(() => {
-        console.log(previousOffset.current, offset.current)
         if (scrollableArea.current) {
             if (previousOffset.current != offset.current) {
                 scrollableArea.current.scrollTop = 250
