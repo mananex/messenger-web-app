@@ -6,17 +6,18 @@ from helpers import chat_sockets, dialogue_sockets, \
                     check_login, check_password, create_user, auth_user, get_session_token, check_session
 from json import loads
 from network import message_handler
+from configuration import DB_PASSWORD, DB_HOST, DB_NAME, DB_PORT, DB_USER
 import asyncpg
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global pool
     pool = await asyncpg.create_pool(
-        user = 'postgres',
-        password = 'postgres',
-        database = 'messenger',
-        host = '127.0.0.1',
-        port = 5432,
+        user = DB_USER,
+        password = DB_PASSWORD,
+        database = DB_NAME,
+        host = DB_HOST,
+        port = DB_PORT,
         min_size = 1,
         max_size = 50,
     )
