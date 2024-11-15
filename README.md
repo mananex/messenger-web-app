@@ -46,6 +46,21 @@ cd messenger.frontend
 npm install
 ```
 
-
 ## Backend configuration
 The configuration file for the backend is stored in `messenger.backend/messenger`. Change the PostgreSQL database configuration (database name, user name, etc).
+
+## Execution
+### To run both the backend and frontend you need to open two terminals.
+
+Running FastAPI.
+```
+cd messenger.backend
+poetry shell
+poetry run fastapi run messenger/app.py
+```
+
+Running Next.js project.
+```
+cd messenger.frontend
+npm run dev
+```
