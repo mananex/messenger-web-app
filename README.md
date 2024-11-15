@@ -15,3 +15,14 @@ Poetry installation:
 sudo apt install pipx
 pipx install poetry
 ```
+NPM installation:
+```
+sudo apt install npm
+```
+
+### Creating database tables
+First of all you must create the database itself and connect to it.
+```
+CREATE DATABASE messenger;
+\c messenger;
+```
