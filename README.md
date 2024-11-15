@@ -29,4 +29,7 @@ CREATE DATABASE messenger;
 Now you can create the tables.
 ```
 CREATE TABLE users (id SERIAL PRIMARY KEY, login VARCHAR(20), password TEXT, name VARCHAR(25) DEFAULT 'User');
+CREATE TABLE messages (id SERIAL PRIMARY KEY, sender_id INT, receiver_id INT, message TEXT);
+CREATE TABLE chats (id SERIAL PRIMARY KEY, starter_user_id INT, target_user_id INT);
+CREATE TABLE active_sessions (id SERIAL PRIMARY KEY, user_id INT, session_token VARCHAR(32));
 ```
