@@ -33,3 +33,19 @@ CREATE TABLE messages (id SERIAL PRIMARY KEY, sender_id INT, receiver_id INT, me
 CREATE TABLE chats (id SERIAL PRIMARY KEY, starter_user_id INT, target_user_id INT);
 CREATE TABLE active_sessions (id SERIAL PRIMARY KEY, user_id INT, session_token VARCHAR(32));
 ```
+
+### Installing python packages
+```
+cd messenger.backend
+poetry install
+```
+
+### Installing Node.js packages
+```
+cd messenger.frontend
+npm install
+```
+
+
+## Backend configuration
+The configuration file for the backend is stored in `messenger.backend/messenger`. Change the PostgreSQL database configuration (database name, user name, etc).
