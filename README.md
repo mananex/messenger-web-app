@@ -26,3 +26,7 @@ First of all you must create the database itself and connect to it.
 CREATE DATABASE messenger;
 \c messenger;
 ```
+Now you can create the tables.
+```
+CREATE TABLE users (id SERIAL PRIMARY KEY, login VARCHAR(20), password TEXT, name VARCHAR(25) DEFAULT 'User');
+```
